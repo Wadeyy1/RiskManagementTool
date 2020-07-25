@@ -1,0 +1,38 @@
+﻿@model RiskManagementTool.Models.RiskInfo
+@{
+    ViewData["Title"] = "Delete";
+ }
+
+    <h1>Delete</h1>
+
+    <div>
+        <h4>Risk Information</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RiskSummary)
+            </dt>
+            <dt>
+                @Html.DisplayFor(model => model.RiskSummary)
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RiskDescription)
+            </dt>
+            <dt>
+                @Html.DisplayFor(model => model.RiskDescription)
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RiskRating)
+            </dt>
+            <dt>
+                @Html.DisplayFor(model => model.RiskRating)
+            </dt>
+        </dl>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-action="Index">Back to List</a>
+        </form>
+    </div>
+
+  

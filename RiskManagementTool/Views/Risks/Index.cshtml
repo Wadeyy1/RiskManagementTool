@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RiskManagementTool.Models.RiskInfo>  
+@{
+    ViewData["Title"] = "Risk Management Page";
+}
+
+<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RiskSummary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RiskDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RiskRating)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ris in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => ris.RiskSummary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ris.RiskDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ris.RiskRating)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@ris.ID">Edit</a>
+                        <a asp-action="Details" asp-route-id="@ris.ID">Details</a>
+                        <a asp-action="Delete" asp-route-id="@ris.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

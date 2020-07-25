@@ -1,0 +1,42 @@
+﻿@model RiskManagementTool.Models.RiskInfo
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<h4>Risk Edit</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="RiskSummary" class="control-label"></label>
+                <input asp-for="RiskSummary" class="form-control" />
+                <span asp-validation-for="RiskSummary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RiskDescription" class="control-label"></label>
+                <input asp-for="RiskDescription" class="form-control" />
+                <span asp-validation-for="RiskDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RiskRating" class="control-label"></label>
+                <input asp-for="RiskRating" class="form-control" />
+                <span asp-validation-for="RiskRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
