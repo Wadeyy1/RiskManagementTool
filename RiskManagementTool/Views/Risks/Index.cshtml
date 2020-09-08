@@ -3,7 +3,12 @@
     ViewData["Title"] = "Risk Management Page";
 }
 
-<h1>Index</h1>
+<h1>Risks Overview</h1>
+
+    <p>
+       The below outlines any risk that are currently outstanding, they are rated from 1 - 5. 1 being the lowest risk rating with insignificant consequence, and 5 being the
+        highest risk with critical consiquences. 
+    </p>
 
     <p>
         <a asp-action="Create" class="btn btn-success">Create New</a>
@@ -26,6 +31,7 @@
         <tbody>
             @foreach (var ris in Model)
             {
+                string colour = (ris.RiskRating == 1 ? "LightGreen" : ris.RiskRating == 2 ? "Green" : ris.RiskRating == 3 ? "Yellow" : ris.RiskRating == 4 ? "Orange" : ris.RiskRating == 5 ? "Red" : "Red");
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => ris.RiskSummary)
@@ -33,7 +39,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => ris.RiskDescription)
                     </td>
-                    <td>
+                    <td style="background-color:@colour">
                         @Html.DisplayFor(modelItem => ris.RiskRating)
                     </td>
                     <td>
