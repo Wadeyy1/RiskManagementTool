@@ -10,7 +10,7 @@ namespace RiskManagementTool.Models
 {
     public class RiskDAL
     {
-        string connectionString = "Data Source=35.197.229.155;Initial Catalog=RiskAssment;Persist Security Info=True;User ID=sa;Password=P3nf01d99";
+        string connectionString = "Data Source=188.121.44.214;Initial Catalog=Riskmanager;Persist Security Info=True;User ID=riskmanager;Password=P3nf01d99";
 
         //Get All Risks from DB
         public IEnumerable<RiskInfo> GetRisks()

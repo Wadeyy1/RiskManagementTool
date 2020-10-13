@@ -34,8 +34,6 @@ C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netc
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.csproj.CopyComplete
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Create.cshtml.g.cs
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Index.cshtml.g.cs
-C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.csproj.CoreCompileInputs.cache
-C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Delete.cshtml.g.cs
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Details.cshtml.g.cs
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Edit.cshtml.g.cs
@@ -45,3 +43,5 @@ C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\bin\Debug\netc
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.csproj.CoreCompileInputs.cache
+C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.MvcApplicationPartsAssemblyInfo.cache
