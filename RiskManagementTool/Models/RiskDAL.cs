@@ -19,6 +19,7 @@ namespace RiskManagementTool.Models
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                try { 
                 SqlCommand cmd = new SqlCommand("SP_GetAllRisks", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 con.Open();
@@ -34,6 +35,11 @@ namespace RiskManagementTool.Models
                     RiskList.Add(ris);
                 }
                 con.Close();
+                }
+                catch (Exception sqlCall)
+                {
+                    Console.WriteLine(sqlCall.Message);
+                }
             }
             return RiskList;
         }
@@ -43,16 +49,21 @@ namespace RiskManagementTool.Models
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SP_InsertRisk", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                try {
+                    SqlCommand cmd = new SqlCommand("SP_InsertRisk", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@RiskSummary", ris.RiskSummary);
-                cmd.Parameters.AddWithValue("@RiskDescription", ris.RiskDescription);
-                cmd.Parameters.AddWithValue("@RiskRating", ris.RiskRating);
+                    cmd.Parameters.AddWithValue("@RiskSummary", ris.RiskSummary);
+                    cmd.Parameters.AddWithValue("@RiskDescription", ris.RiskDescription);
+                    cmd.Parameters.AddWithValue("@RiskRating", ris.RiskRating);
 
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                catch (Exception sqlCall){
+                    Console.WriteLine(sqlCall.Message);
+                }
             }
         }
 
@@ -62,7 +73,8 @@ namespace RiskManagementTool.Models
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SP_UpdateRisk", con);
+                try{
+                    SqlCommand cmd = new SqlCommand("SP_UpdateRisk", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@RiskID", ris.ID);
@@ -74,6 +86,11 @@ namespace RiskManagementTool.Models
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+                catch (Exception sqlCall)
+            {
+                Console.WriteLine(sqlCall.Message);
+            }
+        }
         }
 
         // Delete Risk Record
@@ -82,7 +99,8 @@ namespace RiskManagementTool.Models
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SP_DeleteRisk", con);
+                try {
+                    SqlCommand cmd = new SqlCommand("SP_DeleteRisk", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@RiskID", risid);
@@ -90,7 +108,12 @@ namespace RiskManagementTool.Models
                 con.Open();
                 cmd.ExecuteNonQuery();
                 con.Close();
-            }
+        }
+                catch (Exception sqlCall)
+        {
+            Console.WriteLine(sqlCall.Message);
+        }
+    }
         }
 
         // Get Risk Record
@@ -101,7 +124,8 @@ namespace RiskManagementTool.Models
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SP_GetRisk", con);
+                try {
+                    SqlCommand cmd = new SqlCommand("SP_GetRisk", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@RiskID", risid);
                 con.Open();
@@ -115,7 +139,12 @@ namespace RiskManagementTool.Models
 
                 }
                 con.Close();
-            }
+                }
+                catch (Exception sqlCall)
+                {
+                    Console.WriteLine(sqlCall.Message);
+                }
+}
             return ris;
         }
     }
