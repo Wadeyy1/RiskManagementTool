@@ -18,6 +18,32 @@ namespace RiskManagementTool.Controllers
             return View(riskList);
         }
 
+        public IActionResult Summary()
+        {
+            return View();
+        }
+
+        public IActionResult Login([Bind] UserLogin login)
+        {
+            if (login.Username == null) {
+                return View();
+            }
+            else
+            {
+            int Result = riskDAL.LoginCheck(login);
+            if (Result == 1)
+            {
+                    login.Valid = 1;
+                    return RedirectToAction("Index");
+            }
+            else
+            {
+                    login.Valid = 0;
+                    return View();
+            }
+            }
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

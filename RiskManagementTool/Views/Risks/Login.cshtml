@@ -1,0 +1,29 @@
+﻿@model RiskManagementTool.Models.UserLogin
+@{ 
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <form class="form-horizontal" asp-action="Login">
+                <div class="form-group">
+                    <label class="control-label">Username</label>
+                    <input asp-for="Username" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+                    <input asp-for="Password" class="form-control" type="text" />
+                </div>
+                <div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>

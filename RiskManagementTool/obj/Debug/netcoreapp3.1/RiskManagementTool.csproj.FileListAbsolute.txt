@@ -45,3 +45,5 @@ C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\bin\Debug\netc
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.csproj.CoreCompileInputs.cache
 C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\RiskManagementTool.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Summary.cshtml.g.cs
+C:\Users\jrwad\source\repos\RiskManagementTool\RiskManagementTool\obj\Debug\netcoreapp3.1\Razor\Views\Risks\Login.cshtml.g.cs
