@@ -9,7 +9,7 @@ namespace RiskManagementTool.Controllers
 {
     public class RisksController : Controller
     {
-        RiskDAL riskDAL = new RiskDAL();
+        private RiskDAL riskDAL = new RiskDAL();
 
         public IActionResult Index()
         {
@@ -25,22 +25,24 @@ namespace RiskManagementTool.Controllers
 
         public IActionResult Login([Bind] UserLogin login)
         {
-            if (login.Username == null) {
+            if (login.Username == null)
+            {
                 return View();
             }
             else
             {
-            int Result = riskDAL.LoginCheck(login);
-            if (Result == 1)
-            {
+                int Result = riskDAL.LoginCheck(login);
+                if (Result == 1)
+                {
                     login.Valid = 1;
+
                     return RedirectToAction("Index");
-            }
-            else
-            {
+                }
+                else
+                {
                     login.Valid = 0;
                     return View();
-            }
+                }
             }
         }
 
@@ -54,7 +56,7 @@ namespace RiskManagementTool.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind] RiskInfo objris)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 riskDAL.AddRisk(objris);
                 return RedirectToAction("Index");
@@ -78,13 +80,13 @@ namespace RiskManagementTool.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int? id,[Bind] RiskInfo objris)
+        public IActionResult Edit(int? id, [Bind] RiskInfo objris)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            
+
             if (ModelState.IsValid)
             {
                 riskDAL.UpdateRisk(objris);

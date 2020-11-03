@@ -1,9 +1,14 @@
 ﻿@model RiskManagementTool.Models.UserLogin
-@{ 
+@{
     ViewData["Title"] = "Login Page";
 }
 
 <div class="container">
+    <div class="row">
+            <div runat="server" ID="failedLogin" visible="True">
+                <p>Test Error</p>
+            </div>    
+    </div>
     <div class="row">
         <div class="col-sm-4">
         </div>
@@ -19,7 +24,7 @@
                 </div>
                 <div>
                     <div class="form-group">
-                        <input type="submit" value="Submit"/>
+                        <input type="submit" value="Submit" />
                     </div>
                 </div>
             </form>
