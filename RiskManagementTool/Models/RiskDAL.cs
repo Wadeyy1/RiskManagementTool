@@ -1,31 +1,29 @@
-﻿using RiskManagementTool.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using RiskManagementTool.Models;
 
 namespace RiskManagementTool.Models
 {
     public class RiskDAL
     {
         //Creates Connection String from Data packet in AppSettings
-        SqlConnection connectionString;
+        private SqlConnection connectionString;
+
         public RiskDAL()
         {
             var configuration = GetConfiguration();
             connectionString = new SqlConnection(configuration.GetSection("Data").GetSection("ConnectionString").Value);
         }
+
         public IConfigurationRoot GetConfiguration()
         {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange:true);
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             return builder.Build();
         }
-        
+
         //Checks if user if valid
         public int LoginCheck(UserLogin user)
         {
@@ -34,7 +32,7 @@ namespace RiskManagementTool.Models
             cmd.Parameters.AddWithValue("@Username", user.Username);
             cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.Add("@IsValid", SqlDbType.Bit).Direction = ParameterDirection.Output;
-            
+
             connectionString.Open();
             cmd.ExecuteNonQuery();
 
@@ -44,6 +42,29 @@ namespace RiskManagementTool.Models
             return Result;
         }
 
+        public List<RiskSummary> RiskSummary()
+        {
+            connectionString.Open();
+
+            List<RiskSummary> RiskSummary = new List<RiskSummary>();
+            string strSelect = "Select RiskRating,Count(RiskRating) as RiskRatingCount From riskmanager.Risks Group By RiskRating";
+            SqlCommand cmd = new SqlCommand(strSelect, connectionString);
+            SqlDataReader myReader = cmd.ExecuteReader();
+
+            while (myReader.Read())
+            {
+                RiskSummary ris = new RiskSummary();
+                ris.RiskRatingTotal = Convert.ToDecimal(myReader["RiskRating"].ToString());
+                ris.RiskRatingTotalCount = Convert.ToInt32(myReader["RiskRatingCount"].ToString());
+                RiskSummary.Add(ris);
+            }
+
+            myReader.Close();
+            connectionString.Close();
+
+            return RiskSummary;
+        }
+
         //Get All Risks from DB
         public IEnumerable<RiskInfo> GetRisks()
         {
@@ -51,22 +72,23 @@ namespace RiskManagementTool.Models
 
             using (connectionString)
             {
-                try { 
-                SqlCommand cmd = new SqlCommand("SP_GetAllRisks", connectionString);
-                cmd.CommandType = CommandType.StoredProcedure;
-                connectionString.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                try
                 {
-                    RiskInfo ris = new RiskInfo();
-                    ris.ID = Convert.ToInt32(dr["ID"].ToString());
-                    ris.RiskSummary = dr["RiskSummary"].ToString();
-                    ris.RiskDescription = dr["RiskDescription"].ToString();
-                    ris.RiskRating = Convert.ToDecimal(dr["RiskRating"].ToString());
+                    SqlCommand cmd = new SqlCommand("SP_GetAllRisks", connectionString);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    connectionString.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        RiskInfo ris = new RiskInfo();
+                        ris.ID = Convert.ToInt32(dr["ID"].ToString());
+                        ris.RiskSummary = dr["RiskSummary"].ToString();
+                        ris.RiskDescription = dr["RiskDescription"].ToString();
+                        ris.RiskRating = Convert.ToDecimal(dr["RiskRating"].ToString());
 
-                    RiskList.Add(ris);
-                }
-                connectionString.Close();
+                        RiskList.Add(ris);
+                    }
+                    connectionString.Close();
                 }
                 catch (Exception sqlCall)
                 {
@@ -81,7 +103,8 @@ namespace RiskManagementTool.Models
         {
             using (connectionString)
             {
-                try {
+                try
+                {
                     SqlCommand cmd = new SqlCommand("SP_InsertRisk", connectionString);
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -93,7 +116,8 @@ namespace RiskManagementTool.Models
                     cmd.ExecuteNonQuery();
                     connectionString.Close();
                 }
-                catch (Exception sqlCall){
+                catch (Exception sqlCall)
+                {
                     Console.WriteLine(sqlCall.Message);
                 }
             }
@@ -105,24 +129,25 @@ namespace RiskManagementTool.Models
         {
             using (connectionString)
             {
-                try{
+                try
+                {
                     SqlCommand cmd = new SqlCommand("SP_UpdateRisk", connectionString);
-                cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@RiskID", ris.ID);
-                cmd.Parameters.AddWithValue("@RiskSummary", ris.RiskSummary);
-                cmd.Parameters.AddWithValue("@RiskDescription", ris.RiskDescription);
-                cmd.Parameters.AddWithValue("@RiskRating", ris.RiskRating);
+                    cmd.Parameters.AddWithValue("@RiskID", ris.ID);
+                    cmd.Parameters.AddWithValue("@RiskSummary", ris.RiskSummary);
+                    cmd.Parameters.AddWithValue("@RiskDescription", ris.RiskDescription);
+                    cmd.Parameters.AddWithValue("@RiskRating", ris.RiskRating);
 
-                connectionString.Open();
-                cmd.ExecuteNonQuery();
-                connectionString.Close();
-            }
+                    connectionString.Open();
+                    cmd.ExecuteNonQuery();
+                    connectionString.Close();
+                }
                 catch (Exception sqlCall)
-            {
-                Console.WriteLine(sqlCall.Message);
+                {
+                    Console.WriteLine(sqlCall.Message);
+                }
             }
-        }
         }
 
         // Delete Risk Record
@@ -131,21 +156,22 @@ namespace RiskManagementTool.Models
         {
             using (connectionString)
             {
-                try {
+                try
+                {
                     SqlCommand cmd = new SqlCommand("SP_DeleteRisk", connectionString);
-                cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@RiskID", risid);
+                    cmd.Parameters.AddWithValue("@RiskID", risid);
 
-                connectionString.Open();
-                cmd.ExecuteNonQuery();
-                connectionString.Close();
-        }
+                    connectionString.Open();
+                    cmd.ExecuteNonQuery();
+                    connectionString.Close();
+                }
                 catch (Exception sqlCall)
-        {
-            Console.WriteLine(sqlCall.Message);
-        }
-    }
+                {
+                    Console.WriteLine(sqlCall.Message);
+                }
+            }
         }
 
         // Get Risk Record
@@ -156,27 +182,27 @@ namespace RiskManagementTool.Models
 
             using (connectionString)
             {
-                try {
-                    SqlCommand cmd = new SqlCommand("SP_GetRisk", connectionString);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RiskID", risid);
-                connectionString.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                try
                 {
-                    ris.ID = Convert.ToInt32(dr["ID"].ToString());
-                    ris.RiskSummary = dr["RiskSummary"].ToString();
-                    ris.RiskDescription = dr["RiskDescription"].ToString();
-                    ris.RiskRating = Convert.ToDecimal(dr["RiskRating"].ToString());
-
-                }
-                 connectionString.Close();
+                    SqlCommand cmd = new SqlCommand("SP_GetRisk", connectionString);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RiskID", risid);
+                    connectionString.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        ris.ID = Convert.ToInt32(dr["ID"].ToString());
+                        ris.RiskSummary = dr["RiskSummary"].ToString();
+                        ris.RiskDescription = dr["RiskDescription"].ToString();
+                        ris.RiskRating = Convert.ToDecimal(dr["RiskRating"].ToString());
+                    }
+                    connectionString.Close();
                 }
                 catch (Exception sqlCall)
                 {
                     Console.WriteLine(sqlCall.Message);
                 }
-}
+            }
             return ris;
         }
     }

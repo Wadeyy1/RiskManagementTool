@@ -2,13 +2,8 @@
 @{
     ViewData["Title"] = "Login Page";
 }
-
+<div class="bar error">@Html.Label((string)ViewBag.Name)</div>
 <div class="container">
-    <div class="row">
-            <div runat="server" ID="failedLogin" visible="True">
-                <p>Test Error</p>
-            </div>    
-    </div>
     <div class="row">
         <div class="col-sm-4">
         </div>

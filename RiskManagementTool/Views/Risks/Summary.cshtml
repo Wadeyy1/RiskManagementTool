@@ -1,23 +1,42 @@
-﻿
-@{
+﻿@model IEnumerable<RiskManagementTool.Models.RiskSummary>
     ViewData["Title"] = "Risk Management Summary Page";
 }
+<div class="container">
+    <h1>Risks Summary</h1>
 
-<h1>Risks Summary</h1>
+    <p>
+        Summary of current live Risks can be found below.
+    </p>
 
-<p>
-    Summary of current live Risks can be flund below.
-</p>
+    <div class="b">Very Low</div>
+    <div class="b">Low</div>
+    <div class="b">Medium</div>
+    <div class="b">High</div>
+    <div class="b">Very High</div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                5
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RiskRatingTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RiskRatingTotalCount)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ris in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => ris.RiskRatingTotal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ris.RiskRatingTotalCount)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

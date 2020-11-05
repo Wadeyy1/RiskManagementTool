@@ -20,7 +20,9 @@ namespace RiskManagementTool.Controllers
 
         public IActionResult Summary()
         {
-            return View();
+            List<RiskSummary> riskSummary = new List<RiskSummary>();
+            riskSummary = riskDAL.RiskSummary();
+            return View(riskSummary);
         }
 
         public IActionResult Login([Bind] UserLogin login)
@@ -40,6 +42,7 @@ namespace RiskManagementTool.Controllers
                 }
                 else
                 {
+                    ViewBag.Name = "Username or Password incorrect. ";
                     login.Valid = 0;
                     return View();
                 }
